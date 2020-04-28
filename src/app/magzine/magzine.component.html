@@ -1,0 +1,32 @@
+<form [formGroup]="magzineForm" (ngSubmit)="submitForm()">
+    Full name: <br/>
+    <span style="color: red" 
+        [hidden]="magzineForm.controls.fullName.valid ||
+            magzineForm.controls.fullName.untouched">
+        Please enter your name<br/></span>
+    <input formControlName="fullName" type="text" /><br/>
+    Valid: {{magzineForm.controls.fullName.valid}}<br/>
+    Touched: {{magzineForm.controls.fullName.touched}}<br/>
+    Dirty: {{magzineForm.controls.fullName.dirty}}<br/>
+
+    Magazine edition: <br/>
+    <select formControlName="selectedEdition">
+        <option *ngFor="let e of editions" [ngValue]="e">{{e.editionName}}</option>
+    </select><br/>
+
+    Shipping option: <br/>
+    <input type="radio" formControlName="selectedShipping" 
+        value="GROUND"/>Ground
+    <input type="radio" formControlName="selectedShipping" 
+        value="AIR"/>Air
+
+    <label>
+        <input formControlName="acceptPolicy" type="checkbox" />
+        I accept the terms and conditions</label>
+        <br/>
+        Price: {{magzineForm.value.selectedEdition.price}}
+        <br/>
+    <button 
+        [disabled]="magzineForm.invalid || !magzineForm.value.acceptPolicy" 
+        type="submit">Purchase</button>
+</form>
